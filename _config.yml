@@ -1,0 +1,53 @@
+# Site settings
+title: "Niche Daily"
+description: "Daily insights on trending topics in your chosen niche."
+url: "https://nichedaily.com" # Replace with your domain
+baseurl: "" # Leave blank unless hosting in a subfolder
+language: "en"
+permalink: "/:title/"
+
+# SEO settings
+seo:
+  title: "Niche Daily - Your Source for Trending Niche Topics"
+  description: "Stay ahead with daily SEO-optimized articles on trending topics in your chosen niche."
+  keywords: "trending topics, daily blog, SEO blog, niche news, latest updates"
+  author: "Niche Daily Team"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Feed settings
+feed:
+  path: feed.xml
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
+
+# Social links (optional)
+social:
+  twitter: "https://twitter.com/YourProfile"
+  facebook: "https://facebook.com/YourProfile"
+  instagram: "https://instagram.com/YourProfile"
+  linkedin: "https://linkedin.com/in/YourProfile"
+
+# Google Analytics (optional)
+google_analytics: "G-XXXXXXXXXX" # Replace with your tracking ID
+
+# Adsense (optional)
+adsense:
+  publisher_id: "pub-xxxxxxxxxxxxxxxx" # Replace with your Adsense Publisher ID
+
+# Exclude unnecessary files
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

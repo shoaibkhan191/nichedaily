@@ -1,0 +1,19 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Images cache
+assets/images/*.tmp
+
+# OS
+.DS_Store
+Thumbs.db

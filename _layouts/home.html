@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<section class="hero">
+  <h1>{{ site.title }}</h1>
+  <p>{{ site.description }}</p>
+</section>
+<section class="post-list">
+  {% for post in site.posts limit:12 %}
+  <article class="post-card">
+    <a href="{{ post.url | relative_url }}">
+      {% if post.image %}
+      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+      {% endif %}
+      <h2>{{ post.title }}</h2>
+      <p class="meta">{{ post.date | date: "%B %d, %Y" }}</p>
+      <p>{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</p>
+    </a>
+  </article>
+  {% endfor %}
+</section>
