@@ -1,8 +1,8 @@
 # Site Configuration
 title: "AI Insights Hub"
 description: "Your premier destination for cutting-edge AI insights, research, and practical applications in artificial intelligence."
-url: "https://aiinsightshub.com"
-baseurl: ""
+url: "https://shoaibkhan191.github.io"
+baseurl: "/nichedaily"
 language: "en"
 author: "AI Insights Hub Team"
 timezone: "UTC"
