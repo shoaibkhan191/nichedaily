@@ -8,5 +8,5 @@ gem "jekyll-sitemap"
 
 gem "jekyll-seo-tag"
 
-# For pagination
-gem "jekyll-paginate"
+# For pagination (disabled for GitHub Pages compatibility)
+# gem "jekyll-paginate"

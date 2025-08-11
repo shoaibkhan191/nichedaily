@@ -21,15 +21,14 @@ plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-paginate
 
 # Feed settings
 feed:
   path: feed.xml
 
-# Pagination
-paginate: 10
-paginate_path: "/page:num/"
+# Pagination (disabled - GitHub Pages compatibility)
+# paginate: 10
+# paginate_path: "/page:num/"
 
 # Social links (optional)
 social:
