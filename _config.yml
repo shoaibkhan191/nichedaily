@@ -1,8 +1,8 @@
 # Site settings
 title: "Niche Daily"
 description: "Daily insights on trending topics in your chosen niche."
-url: https://shoaibkhan191.github.io/nichedaily/ # Replace with your domain
-baseurl: "" # Leave blank unless hosting in a subfolder
+url: "https://shoaibkhan191.github.io"
+baseurl: "/nichedaily"
 language: "en-US"
 permalink: "/:title/"
 
