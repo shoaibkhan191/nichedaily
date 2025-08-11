@@ -1,39 +1,127 @@
 ---
 layout: default
 ---
+<!-- Hero Section -->
 <section class="hero">
-  <h1>{{ site.title }}</h1>
-  <p>{{ site.description }}</p>
-</section>
-<section class="post-list">
-  {% assign paginator_obj = paginator | default: nil %}
-  {% if paginator_obj %}
-    {% assign posts_to_render = paginator.posts %}
-  {% else %}
-    {% assign posts_to_render = site.posts %}
-  {% endif %}
-  {% for post in posts_to_render %}
-  <article class="post-card">
-    <a href="{{ post.url | relative_url }}">
-      {% if post.image %}
-      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
-      {% endif %}
-      <h2>{{ post.title }}</h2>
-      <p class="meta">{{ post.date | date: "%B %d, %Y" }}</p>
-      <p>{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</p>
-    </a>
-  </article>
-  {% endfor %}
+  <div class="container">
+    <h1>Your Gateway to AI Innovation</h1>
+    <p>Explore cutting-edge artificial intelligence research, practical applications, and insights from leading experts in the field.</p>
+    <div class="hero-buttons">
+      <a href="{{ '/blog/' | relative_url }}" class="btn btn-primary">Explore Articles</a>
+      <a href="{{ '/categories/' | relative_url }}" class="btn btn-secondary">Browse Categories</a>
+    </div>
+  </div>
 </section>
 
-{% if paginator_obj %}
-<nav class="pagination" aria-label="Pagination">
-  {% if paginator.previous_page %}
-    <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}">Newer</a>
-  {% endif %}
-  <span class="page-status">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
-  {% if paginator.next_page %}
-    <a class="page-link" href="{{ paginator.next_page_path | relative_url }}">Older</a>
-  {% endif %}
-  </nav>
+<!-- AI Categories Section -->
+<section class="categories">
+  <div class="container">
+    <div class="section-header">
+      <h2>AI Topics & Categories</h2>
+      <p>Dive deep into specialized areas of artificial intelligence and machine learning.</p>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card">
+        <div class="category-icon">🧠</div>
+        <h3>Machine Learning</h3>
+        <p>Explore algorithms, techniques, and practical applications of machine learning systems.</p>
+        <a href="{{ '/categories/machine-learning/' | relative_url }}" class="btn btn-outline">Explore</a>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🕸️</div>
+        <h3>Deep Learning</h3>
+        <p>Discover neural networks, architectures, and advanced deep learning methodologies.</p>
+        <a href="{{ '/categories/deep-learning/' | relative_url }}" class="btn btn-outline">Explore</a>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🚀</div>
+        <h3>AI Applications</h3>
+        <p>Real-world implementations and case studies of AI in various industries.</p>
+        <a href="{{ '/categories/ai-applications/' | relative_url }}" class="btn btn-outline">Explore</a>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🔬</div>
+        <h3>AI Research</h3>
+        <p>Latest research papers, breakthroughs, and cutting-edge developments in AI.</p>
+        <a href="{{ '/categories/ai-research/' | relative_url }}" class="btn btn-outline">Explore</a>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">⚖️</div>
+        <h3>AI Ethics</h3>
+        <p>Responsible AI development, governance, and ethical considerations.</p>
+        <a href="{{ '/categories/ai-ethics/' | relative_url }}" class="btn btn-outline">Explore</a>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🛠️</div>
+        <h3>AI Tools</h3>
+        <p>Reviews and guides for AI tools, platforms, and development resources.</p>
+        <a href="{{ '/categories/ai-tools/' | relative_url }}" class="btn btn-outline">Explore</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-content">
+        <h2>Why Choose AI Insights Hub?</h2>
+        <p>We bring you the most comprehensive and up-to-date coverage of artificial intelligence developments, written by experts and practitioners in the field.</p>
+        <ul class="feature-list">
+          <li>Expert analysis and insights</li>
+          <li>Latest research and breakthroughs</li>
+          <li>Practical applications and tutorials</li>
+          <li>Ethical AI discussions</li>
+          <li>Tool reviews and comparisons</li>
+        </ul>
+        <a href="{{ '/about/' | relative_url }}" class="btn btn-primary">Learn About Us</a>
+      </div>
+      <div class="feature-image">
+        <img src="{{ '/assets/images/ai-brain.jpg' | relative_url }}" alt="AI Brain Visualization" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+  <div class="container">
+    <h2>Stay Ahead in AI</h2>
+    <p>Join thousands of AI enthusiasts, researchers, and practitioners who trust us for the latest insights and developments in artificial intelligence.</p>
+    <div class="hero-buttons">
+      <a href="{{ '/blog/' | relative_url }}" class="btn btn-secondary">Start Reading</a>
+      <a href="{{ '/feed.xml' | relative_url }}" class="btn btn-outline">Subscribe to RSS</a>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Blog Posts -->
+{% if site.posts.size > 0 %}
+<section class="blog-preview">
+  <div class="container">
+    <div class="section-header">
+      <h2>Latest AI Insights</h2>
+      <p>Stay updated with the latest developments and insights in artificial intelligence.</p>
+    </div>
+    <div class="post-list">
+      {% for post in site.posts limit:3 %}
+      <article class="post-card">
+        {% if post.image %}
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+        {% endif %}
+        <div class="post-card-content">
+          <h3>{{ post.title }}</h3>
+          <p class="meta">{{ post.date | date: "%B %d, %Y" }}</p>
+          <p>{{ post.description | default: post.excerpt | strip_html | truncate: 120 }}</p>
+          <a href="{{ post.url | relative_url }}" class="btn btn-outline">Read More</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="{{ '/blog/' | relative_url }}" class="btn btn-primary">View All Articles</a>
+    </div>
+  </div>
+</section>
 {% endif %}

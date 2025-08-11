@@ -1,57 +1,85 @@
-# Site settings
-title: "Niche Daily"
-description: "Daily insights on trending topics in your chosen niche."
-url: "https://shoaibkhan191.github.io"
-baseurl: "/nichedaily"
-language: "en-US"
-permalink: "/:title/"
+# Site Configuration
+title: "AI Insights Hub"
+description: "Your premier destination for cutting-edge AI insights, research, and practical applications in artificial intelligence."
+url: "https://aiinsightshub.com"
+baseurl: ""
+language: "en"
+author: "AI Insights Hub Team"
+timezone: "UTC"
 
-# SEO settings
+# SEO Configuration
 seo:
-  title: "Niche Daily - Your Source for Trending Niche Topics"
-  description: "Stay ahead with daily SEO-optimized articles on trending topics in your chosen niche."
-  keywords: "trending topics, daily blog, SEO blog, niche news, latest updates"
-  author: "Niche Daily Team"
+  title: "AI Insights Hub - Cutting-Edge AI Research & Insights"
+  description: "Your premier destination for cutting-edge AI insights, research, and practical applications in artificial intelligence."
+  keywords: ["artificial intelligence", "machine learning", "deep learning", "AI research", "AI tools", "computer vision", "natural language processing", "AI ethics"]
+  author: "AI Insights Hub Team"
+  image: "/assets/images/ai-insights-hub.jpg"
 
-# Build settings
+# Social Media
+social:
+  twitter: "https://twitter.com/AIInsightsHub"
+  linkedin: "https://linkedin.com/company/aiinsightshub"
+  github: "https://github.com/AIInsightsHub"
+  youtube: "https://youtube.com/@AIInsightsHub"
+
+# Contact Information
+contact:
+  email: "hello@aiinsightshub.com"
+  twitter: "@AIInsightsHub"
+  github: "AIInsightsHub"
+
+# AI Categories
+ai_categories:
+  - name: "Machine Learning"
+    description: "Algorithms, techniques, and practical applications"
+  - name: "Deep Learning"
+    description: "Neural networks and advanced architectures"
+  - name: "AI Applications"
+    description: "Real-world implementations and case studies"
+  - name: "AI Research"
+    description: "Latest breakthroughs and developments"
+  - name: "AI Ethics"
+    description: "Responsible AI development and governance"
+  - name: "AI Tools"
+    description: "Development platforms and resources"
+  - name: "Data Science"
+    description: "Data preprocessing and analysis for AI"
+  - name: "Computer Vision"
+    description: "Image recognition and visual AI"
+
+# Google Analytics
+google_analytics_id: "G-XXXXXXXXXX"
+google_site_verification: "your_verification_code"
+
+# Automation Configuration
+automation:
+  niche: "artificial intelligence"
+  country: "united_states"
+  language: "en"
+  min_word_count: 1500
+  max_word_count: 2500
+  generation_backend: "template"  # Options: template, openai, hf_api
+  internal_links_max: 3
+  backup_keywords_file: "scripts/backup_keywords.txt"
+
+# Build Settings
 markdown: kramdown
 highlighter: rouge
-theme: minima
+permalink: /:title/
 plugins:
-  - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 
-# Feed settings
-feed:
-  path: feed.xml
-
-# Pagination (disabled - GitHub Pages compatibility)
-# paginate: 10
-# paginate_path: "/page:num/"
-
-# Social links (optional)
-social:
-  twitter: "https://twitter.com/YourProfile"
-  facebook: "https://facebook.com/YourProfile"
-  instagram: "https://instagram.com/YourProfile"
-  linkedin: "https://linkedin.com/in/YourProfile"
-
-# Google Analytics (optional)
-# Use GA4 ID here; layouts read `google_analytics_id`
-google_analytics_id: "G-XXXXXXXXXX" # Replace with your tracking ID
-
-# Google Search Console (optional)
-google_site_verification: "" # Add verification token
-
-# Adsense (optional)
-adsense:
-  publisher_id: "pub-xxxxxxxxxxxxxxxx" # Replace with your Adsense Publisher ID
-
-# Exclude unnecessary files
+# Exclude from build
 exclude:
-  - README.md
   - Gemfile
   - Gemfile.lock
   - node_modules
   - vendor
+  - .git
+  - .github
+  - scripts/
+  - .automation/
+  - README.md
+  - LICENSE

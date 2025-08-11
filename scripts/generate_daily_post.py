@@ -178,53 +178,138 @@ def generate_with_hf(prompt: str, model: str = "google/flan-t5-large") -> Option
 
 
 def generate_with_template(keyword: str, niche: str, min_words: int, max_words: int) -> str:
-    # Heuristic, structured article with headings for SEO
-    sections = []
-    sections.append(f"## What is {keyword}?\n{keyword} is a concept, tool, or technique often discussed in the {niche} niche. "
-                    f"This overview explains what it means, why it matters, and how to apply it in the real world.")
+    # AI-focused structured article with comprehensive coverage
+    keyword_lower = keyword.lower()
+    
+    # Determine the AI category based on keywords
+    if any(term in keyword_lower for term in ['machine learning', 'ml', 'algorithm']):
+        category = 'machine-learning'
+        focus = 'algorithms, techniques, and practical applications'
+    elif any(term in keyword_lower for term in ['deep learning', 'neural network', 'cnn', 'rnn']):
+        category = 'deep-learning'
+        focus = 'neural network architectures and training methodologies'
+    elif any(term in keyword_lower for term in ['computer vision', 'image', 'detection']):
+        category = 'computer-vision'
+        focus = 'visual AI technologies and applications'
+    elif any(term in keyword_lower for term in ['nlp', 'language', 'text', 'transformer']):
+        category = 'ai-applications'
+        focus = 'natural language processing and text understanding'
+    elif any(term in keyword_lower for term in ['ethics', 'governance', 'responsible']):
+        category = 'ai-ethics'
+        focus = 'responsible AI development and ethical considerations'
+    elif any(term in keyword_lower for term in ['tool', 'framework', 'platform', 'library']):
+        category = 'ai-tools'
+        focus = 'AI development tools and resources'
+    elif any(term in keyword_lower for term in ['data', 'statistics', 'analysis']):
+        category = 'data-science'
+        focus = 'data preprocessing and analysis for AI'
+    else:
+        category = 'ai-applications'
+        focus = 'artificial intelligence applications and use cases'
+    
+    # AI-focused article structure
+    article = f"""# {keyword}: A Comprehensive Guide
 
-    sections.append(f"## Key takeaways\n- {keyword} helps practitioners improve outcomes in {niche}.\n- Start small, validate results, and iterate.\n- Combine qualitative insights with data-driven decisions.")
+## Introduction
 
-    sections.append(f"## How {keyword} works\nIn practice, {keyword} involves a few stages: discovery, planning, execution, and continuous evaluation. "
-                    f"Teams align on goals, collect relevant inputs, and measure the impact to refine the approach.")
+{keyword} represents one of the most significant developments in artificial intelligence today. This comprehensive guide explores the fundamentals, applications, and future directions of this transformative technology that is reshaping industries and creating new possibilities across various domains.
 
-    sections.append(f"## Practical steps\n1. Define your objective for using {keyword}.\n2. List constraints and resources.\n3. Pilot a small, low-risk experiment.\n4. Document results and lessons.\n5. Expand the scope with guardrails.")
+## Understanding {keyword}
 
-    sections.append(f"## Benefits\n- Faster experimentation and learning cycles\n- Clearer decision-making in {niche}\n- Better alignment across stakeholders")
+{keyword} encompasses a range of techniques and methodologies that enable machines to learn, adapt, and perform tasks that traditionally required human intelligence. From basic implementations to advanced applications, this field continues to evolve rapidly, driven by both theoretical breakthroughs and practical innovations.
 
-    sections.append(f"## Limitations\n- Results depend on the quality of inputs and context\n- May require additional tooling or skills\n- Not a one-size-fits-all solution")
+## Key Concepts and Fundamentals
 
-    sections.append(f"## Common mistakes\n- Skipping clear goals before adopting {keyword}\n- Over-optimizing without baseline metrics\n- Ignoring qualitative feedback from users")
+### Core Principles
+The foundation of {keyword} lies in several fundamental principles that guide its development and application. Understanding these core concepts is essential for anyone working in or studying artificial intelligence.
 
-    sections.append(f"## Examples and use cases\nConsider small pilots such as a weekly workflow using {keyword} to automate a tedious task, or a month-long evaluation to assess real-world value in your team.")
+### Technical Foundations
+{keyword} builds upon established mathematical and computational principles, including algorithms, statistical methods, and computational frameworks that enable intelligent behavior in machines.
 
-    sections.append(f"## FAQs\n### Is {keyword} suitable for beginners?\nYes. Start with simple use cases and clear success criteria.\n\n### How long does it take to see results?\nOften within weeks if you measure leading indicators.\n\n### What skills are helpful?\nBasic research, experimentation, and documentation skills go a long way.")
+## Practical Applications
 
-    sections.append(f"## Conclusion\n{keyword} can create real value when implemented thoughtfully. Focus on goals, measure impact, and iterate.")
+### Industry Use Cases
+{keyword} is being applied across numerous industries, from healthcare and finance to transportation and entertainment. These applications demonstrate the versatility and impact of AI technologies in solving real-world problems.
 
-    body = "\n\n".join(sections)
+### Real-World Examples
+Concrete examples of {keyword} in action help illustrate the practical value and potential of these technologies. From recommendation systems to autonomous vehicles, the applications are diverse and growing.
 
-    # Expand to target word count by lightly paraphrasing
-    target = random.randint(min_words, max_words)
-    while len(body.split()) < target:
-        body += "\n\n" + random.choice([
-            f"Remember that success with {keyword} comes from deliberate practice and consistent review.",
-            f"In the {niche} landscape, {keyword} is most effective when paired with sound fundamentals.",
-            f"Document your assumptions and outcomes to learn faster with {keyword}.",
-        ])
-    return body
+## Current Trends and Developments
+
+### Recent Breakthroughs
+The field of {keyword} is experiencing rapid advancement, with new research and developments emerging regularly. Staying current with these trends is essential for practitioners and researchers alike.
+
+### Emerging Technologies
+New approaches and methodologies are constantly being developed, pushing the boundaries of what's possible with {keyword}. These innovations often build upon existing work while opening new avenues for exploration.
+
+## Best Practices and Implementation
+
+### Development Guidelines
+Successful implementation of {keyword} requires careful planning and adherence to established best practices. These guidelines help ensure robust, reliable, and ethical AI systems.
+
+### Common Challenges
+Implementing {keyword} solutions often involves overcoming various technical and practical challenges. Understanding these obstacles and their solutions is crucial for successful deployment.
+
+## Future Outlook
+
+### Emerging Directions
+The future of {keyword} holds tremendous promise, with new applications and capabilities on the horizon. These developments will likely transform industries and create new opportunities for innovation.
+
+### Long-term Impact
+The long-term implications of {keyword} extend beyond immediate applications, potentially reshaping how we work, live, and interact with technology. Understanding these broader impacts is important for strategic planning and decision-making.
+
+## Conclusion
+
+{keyword} represents a fundamental shift in how we approach problem-solving and automation. As the technology continues to mature and evolve, its impact will only grow, creating new opportunities and challenges for individuals, organizations, and society as a whole.
+
+The journey into {keyword} is both exciting and challenging, requiring continuous learning and adaptation. Whether you're a researcher, developer, or business professional, staying engaged with this field will be essential for future success and innovation.
+
+---
+
+*This guide provides a comprehensive overview of {keyword}. For more detailed information on specific aspects, explore our related articles and resources on artificial intelligence and machine learning.*"""
+
+    # Ensure word count is within limits
+    words = len(article.split())
+    if words < min_words:
+        # Add more content to meet minimum
+        additional_content = f"""
+
+## Additional Resources
+
+### Learning Paths
+For those interested in diving deeper into {keyword}, we recommend following a structured learning path that builds foundational knowledge before advancing to more complex topics.
+
+### Community and Support
+The {keyword} community is active and supportive, with numerous forums, conferences, and online resources available for learning and collaboration.
+
+### Tools and Platforms
+Various tools and platforms support the development and deployment of {keyword} solutions, from open-source libraries to commercial platforms offering enterprise-grade capabilities."""
+        article += additional_content
+    elif words > max_words:
+        # Truncate to meet maximum
+        sentences = article.split('. ')
+        truncated = '. '.join(sentences[:len(sentences)//2])
+        article = truncated + '.'
+
+    return article
 
 
 def build_prompt(keyword: str, niche: str, min_words: int, max_words: int) -> str:
-    return textwrap.dedent(f"""
-    Write an original, SEO-optimized article in English about: "{keyword}" in the "{niche}" niche.
-    Requirements:
-    - Word count between {min_words} and {max_words}
-    - Clear H2/H3 structure: Introduction, What is it, How it works, Practical steps, Benefits, Limitations, Examples, FAQs, Conclusion
-    - Use concise paragraphs and bullet lists where helpful
-    - Avoid fluff, use actionable language, no plagiarism
-    - Include alt text suggestions inline as (Alt: ...)
-    """)
+    return f"""Write a comprehensive, professional article about {keyword} in the field of artificial intelligence.
+
+Requirements:
+- Target audience: AI professionals, researchers, students, and enthusiasts
+- Length: {min_words}-{max_words} words
+- Style: Educational, engaging, with practical insights and real-world examples
+- Structure: Include introduction, main sections with headings, and conclusion
+- Tone: Professional but accessible, authoritative but not overly technical
+- Content: Cover fundamentals, applications, current trends, and future outlook
+- SEO: Include relevant keywords naturally throughout the content
+- Examples: Provide concrete examples and use cases where possible
+
+Focus on making the content valuable for the AI community, with insights that help readers understand and apply {keyword} in their work or studies.
+
+The article should be informative, well-structured, and demonstrate expertise in artificial intelligence topics."""
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=8), reraise=False)

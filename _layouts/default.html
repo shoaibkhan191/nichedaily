@@ -3,12 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0f62fe">
+  <meta name="theme-color" content="#7c3aed">
   <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   {%- seo -%}
   {%- include head-extra.html -%}
   <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   {%- if site.google_site_verification and site.google_site_verification != '' -%}
   <meta name="google-site-verification" content="{{ site.google_site_verification }}">
   {%- endif -%}
@@ -25,24 +28,52 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <div class="brand-icon">🤖</div>
+        {{ site.title }}
+      </a>
       <nav class="nav">
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/tags/' | relative_url }}">Tags</a>
-        <a href="{{ '/search/' | relative_url }}">Search</a>
-        <a href="{{ '/about/' | relative_url }}">About</a>
-        <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
-        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+        <a href="{{ '/' | relative_url }}" class="{% if page.url == '/' %}active{% endif %}">Home</a>
+        <a href="{{ '/categories/' | relative_url }}" class="{% if page.url contains '/categories' %}active{% endif %}">Categories</a>
+        <a href="{{ '/blog/' | relative_url }}" class="{% if page.url contains '/blog' %}active{% endif %}">Blog</a>
+        <a href="{{ '/research/' | relative_url }}" class="{% if page.url contains '/research' %}active{% endif %}">Research</a>
+        <a href="{{ '/about/' | relative_url }}" class="{% if page.url contains '/about' %}active{% endif %}">About</a>
       </nav>
     </div>
   </header>
-  <main id="main" class="site-main container">
+  <main id="main" class="site-main">
     {{ content }}
   </main>
   <footer class="site-footer">
     <div class="container">
-      <p>© {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
-      <p class="muted">Generated with Jekyll • <a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></p>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>{{ site.title }}</h3>
+          <p>{{ site.description }}</p>
+          <div class="social-links">
+            {% if site.social.twitter %}<a href="{{ site.social.twitter }}" target="_blank" rel="noopener">Twitter</a>{% endif %}
+            {% if site.social.linkedin %}<a href="{{ site.social.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+            {% if site.social.github %}<a href="{{ site.social.github }}" target="_blank" rel="noopener">GitHub</a>{% endif %}
+            {% if site.social.youtube %}<a href="{{ site.social.youtube }}" target="_blank" rel="noopener">YouTube</a>{% endif %}
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>AI Categories</h3>
+          {% for category in site.ai_categories limit:4 %}
+          <p>{{ category.name }}</p>
+          {% endfor %}
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          {% if site.contact.email %}<p>{{ site.contact.email }}</p>{% endif %}
+          {% if site.contact.twitter %}<p>{{ site.contact.twitter }}</p>{% endif %}
+          {% if site.contact.github %}<p>{{ site.contact.github }}</p>{% endif %}
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+        <p class="muted">Generated with Jekyll • <a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></p>
+      </div>
     </div>
   </footer>
 </body>

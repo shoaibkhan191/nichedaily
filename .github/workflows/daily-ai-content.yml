@@ -1,0 +1,90 @@
+name: Daily AI Content Generation
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # Run daily at 9 AM UTC
+  workflow_dispatch:  # Allow manual trigger
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/**'
+      - '_config.yml'
+
+jobs:
+  generate-ai-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('scripts/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/requirements.txt
+      
+      - name: Generate AI article
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          HUGGINGFACE_API_TOKEN: ${{ secrets.HUGGINGFACE_API_TOKEN }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+        run: |
+          python scripts/generate_daily_post.py
+      
+      - name: Check for new content
+        id: check-content
+        run: |
+          if git diff --name-only HEAD~1 | grep -q "_posts/"; then
+            echo "has_new_content=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_new_content=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and push changes
+        if: steps.check-content.outputs.has_new_content == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add _posts/ assets/images/
+          git commit -m "🤖 Auto-generate AI article for $(date +%Y-%m-%d)"
+          git push
+      
+      - name: Comment on PR if exists
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🤖 AI content generation completed successfully!'
+            })
+      
+      - name: Success message
+        if: steps.check-content.outputs.has_new_content == 'true'
+        run: |
+          echo "✅ Successfully generated new AI article"
+          echo "📝 New post created in _posts/ directory"
+          echo "🖼️  Image downloaded to assets/images/"
+      
+      - name: No new content message
+        if: steps.check-content.outputs.has_new_content == 'false'
+        run: |
+          echo "ℹ️  No new content generated - all keywords may be used"
+          echo "💡 Consider updating backup_keywords.txt with new AI topics"
