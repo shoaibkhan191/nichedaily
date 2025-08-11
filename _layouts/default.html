@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f62fe">
   <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   {%- seo -%}
   {%- include head-extra.html -%}
@@ -21,21 +22,27 @@
   {%- endif -%}
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="container">
       <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
       <nav class="nav">
         <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/tags/' | relative_url }}">Tags</a>
+        <a href="{{ '/search/' | relative_url }}">Search</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+        <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
         <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
       </nav>
     </div>
   </header>
-  <main class="site-main container">
+  <main id="main" class="site-main container">
     {{ content }}
   </main>
   <footer class="site-footer">
     <div class="container">
       <p>© {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+      <p class="muted">Generated with Jekyll • <a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></p>
     </div>
   </footer>
 </body>

@@ -1,9 +1,9 @@
 # Site settings
 title: "Niche Daily"
 description: "Daily insights on trending topics in your chosen niche."
-url: "https://nichedaily.com" # Replace with your domain
+url: https://shoaibkhan191.github.io/nichedaily/ # Replace with your domain
 baseurl: "" # Leave blank unless hosting in a subfolder
-language: "en"
+language: "en-US"
 permalink: "/:title/"
 
 # SEO settings
@@ -21,6 +21,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-paginate
 
 # Feed settings
 feed:
@@ -38,7 +39,11 @@ social:
   linkedin: "https://linkedin.com/in/YourProfile"
 
 # Google Analytics (optional)
-google_analytics: "G-XXXXXXXXXX" # Replace with your tracking ID
+# Use GA4 ID here; layouts read `google_analytics_id`
+google_analytics_id: "G-XXXXXXXXXX" # Replace with your tracking ID
+
+# Google Search Console (optional)
+google_site_verification: "" # Add verification token
 
 # Adsense (optional)
 adsense:

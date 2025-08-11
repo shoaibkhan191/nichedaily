@@ -1,0 +1,43 @@
+---
+layout: default
+title: Search
+permalink: /search/
+---
+<section>
+  <h1>Search</h1>
+  <div class="search-box">
+    <input id="search-input" type="search" placeholder="Search posts..." aria-label="Search posts" />
+  </div>
+  <div id="search-results" class="search-results" aria-live="polite"></div>
+</section>
+
+<script>
+(function() {
+  var input = document.getElementById('search-input');
+  var results = document.getElementById('search-results');
+  var indexUrl = '{{ '/search.json' | relative_url }}';
+  var data = [];
+
+  function render(items) {
+    results.innerHTML = items.map(function(item){
+      var date = new Date(item.date).toLocaleDateString();
+      return '<div class="result"><a href="' + item.url + '"><strong>' + item.title + '</strong></a><div class="meta">' + date + '</div><div>' + item.excerpt + '</div></div>';
+    }).join('');
+  }
+
+  function search(q) {
+    q = q.trim().toLowerCase();
+    if (!q) { results.innerHTML = ''; return; }
+    var terms = q.split(/\s+/);
+    var matches = data.filter(function(item){
+      var hay = (item.title + ' ' + item.tags.join(' ') + ' ' + item.content).toLowerCase();
+      return terms.every(function(t){ return hay.indexOf(t) !== -1; });
+    }).slice(0, 30);
+    render(matches);
+  }
+
+  fetch(indexUrl).then(function(r){ return r.json(); }).then(function(json){ data = json; });
+  input.addEventListener('input', function(){ search(input.value); });
+})();
+</script>
+

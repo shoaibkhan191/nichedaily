@@ -1,3 +1,10 @@
 User-agent: *
 Allow: /
+
+# Disallow common non-content paths
+Disallow: /assets/
+
+# Crawl-delay is ignored by Google but respected by some bots
+Crawl-delay: 10
+
 Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml

@@ -3,8 +3,15 @@ layout: default
 ---
 <article class="post">
   <header class="post-header">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <span aria-hidden="true">›</span>
+      <a href="{{ page.url | relative_url }}" aria-current="page">{{ page.title }}</a>
+    </nav>
     <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date | date: "%B %d, %Y" }}</p>
+    {% assign word_count = content | strip_html | split: ' ' | size %}
+    {% assign minutes = word_count | plus: 199 | divided_by: 200 %}
+    <p class="meta">{{ page.date | date: "%B %d, %Y" }} · {{ minutes }} min read</p>
     {% if page.image %}
     <img class="post-hero" src="{{ page.image | relative_url }}" alt="{{ page.title }}">
     {% endif %}
@@ -14,5 +21,18 @@ layout: default
   </section>
   <section class="post-share">
     <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ site.url }}{{ page.url }}" rel="noopener" target="_blank">Share on Twitter</a>
+  </section>
+  {% if page.tags %}
+  <section class="post-tags">
+    <strong>Tags:</strong>
+    {%- for tag in page.tags -%}
+      <a class="tag" href="{{ '/tags/#' | relative_url }}{{ tag | slugify }}">#{{ tag }}</a>
+    {%- endfor -%}
+  </section>
+  {% endif %}
+  <section class="related-posts">
+    <h3>You might also like</h3>
+    {% assign related = site.posts | where_exp: 'p', 'p.url != page.url' %}
+    <ul>{%- for p in related limit:3 -%}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{%- endfor -%}</ul>
   </section>
 </article>

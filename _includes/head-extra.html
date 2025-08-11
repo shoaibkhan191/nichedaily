@@ -13,3 +13,30 @@
 }
 </script>
 {% endif %}
+
+{% if page.layout == 'post' %}
+{% assign img = page.image | default: site.logo %}
+{% if img and img contains '://' %}
+  {% assign img_abs = img %}
+{% else %}
+  {% assign img_abs = img | absolute_url %}
+{% endif %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title | escape }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "image": ["{{ img_abs }}"],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}{{ page.url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title | escape }}"
+  }
+}
+</script>
+{% endif %}

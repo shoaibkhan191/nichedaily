@@ -6,7 +6,13 @@ layout: default
   <p>{{ site.description }}</p>
 </section>
 <section class="post-list">
-  {% for post in site.posts limit:12 %}
+  {% assign paginator_obj = paginator | default: nil %}
+  {% if paginator_obj %}
+    {% assign posts_to_render = paginator.posts %}
+  {% else %}
+    {% assign posts_to_render = site.posts %}
+  {% endif %}
+  {% for post in posts_to_render %}
   <article class="post-card">
     <a href="{{ post.url | relative_url }}">
       {% if post.image %}
@@ -19,3 +25,15 @@ layout: default
   </article>
   {% endfor %}
 </section>
+
+{% if paginator_obj %}
+<nav class="pagination" aria-label="Pagination">
+  {% if paginator.previous_page %}
+    <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}">Newer</a>
+  {% endif %}
+  <span class="page-status">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a class="page-link" href="{{ paginator.next_page_path | relative_url }}">Older</a>
+  {% endif %}
+  </nav>
+{% endif %}

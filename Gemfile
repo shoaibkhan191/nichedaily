@@ -7,3 +7,6 @@ gem "jekyll-feed"
 gem "jekyll-sitemap"
 
 gem "jekyll-seo-tag"
+
+# For pagination
+gem "jekyll-paginate"
